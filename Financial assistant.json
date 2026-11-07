@@ -1,0 +1,649 @@
+{
+  "name": "Financial assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Sam. I am your Financial Assistant Agent, How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -80,
+        -112
+      ],
+      "id": "1f6213e6-d749-42e8-b7e3-e4e3c5a29319",
+      "name": "When chat message received",
+      "webhookId": "0850c2cc-c2bd-452d-892a-1a3625df55b7"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a polite personal financial assistant for my parents, managing her \"invest returns\" Google Sheet.\n\nSPREADSHEET TABS:\n\n\"policy & Month wise\" (Monthly overviews)\n\n\"individual policy\" (Individual insurance/investment policies)\n\n\"individual policy rrs\" (RRS tracking)\n\n\"house checklist\" (House maintenance & to-do items)\n\n\"sandai road house details\" (Sandai Road property expenses & rents)\n\nRULES:\n\nAlways keep your response to 1 or 2 short, simple sentences.\n\nNever explain your reasoning, tool parameters, or technical steps.\n\nWhen asked to read or check information, find the data and state the exact answer directly.\n\nWhen asked to add or update records, update the correct tab and confirm in one simple sentence (e.g., \"Done! I've updated the sandai road house details for you.\").\n\nUse YYYY-MM-DD for dates automatically.\n\nIf the requested tab is unclear, ask one short question to clarify."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        112,
+        -112
+      ],
+      "id": "65c421fb-4627-473e-8b9e-51dcd0bcc281",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        224
+      ],
+      "id": "7f419287-2bc4-4a45-984a-0147475d2031",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "POgLsFHkwpn4FNVy",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        64,
+        224
+      ],
+      "id": "af14ee72-27ae-4753-bcd5-070f81e0e3fd",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2100377368,
+          "mode": "list",
+          "cachedResultName": "policy& month wise",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=2100377368"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "TOTAL INTEREST ",
+              "displayName": "TOTAL INTEREST ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "RETURN",
+              "displayName": "RETURN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "#REF!",
+              "displayName": "#REF!",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "1952686",
+              "displayName": "1952686",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "2470156",
+              "displayName": "2470156",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "2929242",
+              "displayName": "2929242",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "2991890",
+              "displayName": "2991890",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "2734464",
+              "displayName": "2734464",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "2695828",
+              "displayName": "2695828",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "2126788",
+              "displayName": "2126788",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        240,
+        208
+      ],
+      "id": "9b97f42b-b2af-437d-bb39-d9396d22e1ca",
+      "name": "Policy&MonthWise",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1383684847,
+          "mode": "list",
+          "cachedResultName": "individual policy",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=1383684847"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        368,
+        304
+      ],
+      "id": "a2d87d70-f979-4301-b382-881a6a234c43",
+      "name": "individual Policy",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2057443505,
+          "mode": "list",
+          "cachedResultName": "individual policy_RRS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=2057443505"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        528,
+        304
+      ],
+      "id": "ab1c25a4-14c0-419d-bcba-941145d265e9",
+      "name": "individual policy_RRS",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864891550,
+          "mode": "list",
+          "cachedResultName": "individual policy_SN",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=1864891550"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        1024,
+        240
+      ],
+      "id": "e261c372-8caa-46f6-967d-b9a0ffcd63a8",
+      "name": "individual policy_SN",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1006683245,
+          "mode": "list",
+          "cachedResultName": "neelachal house check list",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=1006683245"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        752,
+        256
+      ],
+      "id": "ad17e620-d399-4fe2-88f5-ecbdb7c30ab6",
+      "name": "neelachal house check list",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1251868244,
+          "mode": "list",
+          "cachedResultName": "sandai road house a/c details",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=1251868244"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        272
+      ],
+      "id": "a26fdd5b-4e1d-4baf-908f-ffe2ef40b8b1",
+      "name": "sandai road house a/c details",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool ONLY when you need to read, add, or update data inside the 'policy & Month wise' sheet.\"",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw",
+          "mode": "list",
+          "cachedResultName": "invest-returns latest",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1691358323,
+          "mode": "list",
+          "cachedResultName": "Rent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zXQxkJX1CoEee5Wg9_ZEl_5SmmN0GI5jtswmRzfmTHw/edit#gid=1691358323"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rent Increase",
+              "displayName": "Rent Increase",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "New Rent",
+              "displayName": "New Rent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "advance",
+              "displayName": "advance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        896,
+        240
+      ],
+      "id": "744e22c0-323a-4ae3-8054-d95cfe72b64b",
+      "name": "Rent",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "b9WrdRVtrIhAhx01",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Policy&MonthWise": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "individual Policy": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "individual policy_RRS": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "individual policy_SN": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "neelachal house check list": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sandai road house a/c details": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6115bcf9-2f26-40a5-9a63-1f016203f356",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4356e07b5e0f5e3012f4476febbeb65b77281e3a4cd7a28de29e3c5f46522ee9"
+  },
+  "nodeGroups": [],
+  "id": "OQNjFI672s4vVwlX",
+  "tags": []
+}
